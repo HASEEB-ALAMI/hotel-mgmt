@@ -14,6 +14,12 @@ const Table = styled.div`
   border-radius: 8px;
   overflow: hidden;
   font-size: 1.4rem;
+
+  @media (max-width: 700px) {
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+  }
 `;
 
 const TableHeader = styled.div`
@@ -29,6 +35,10 @@ const TableHeader = styled.div`
 
   & > div:last-child {
     border-right: none;
+  }
+
+  @media (max-width: 700px) {
+    display: none;
   }
 `;
 

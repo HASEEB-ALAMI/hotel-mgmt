@@ -14,6 +14,10 @@ const StatGrid = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.4rem;
   margin: 2.4rem 0;
+
+  @media (max-width: 420px) {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
 `;
 
 const Section = styled.section`
@@ -61,6 +65,11 @@ const RecentItem = styled.div`
   border: 1px solid var(--color-grey-200);
   border-radius: var(--border-radius-md);
   background: var(--color-grey-50);
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const RecentMain = styled.div`
@@ -76,6 +85,10 @@ const RecentTitle = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media (max-width: 640px) {
+    white-space: normal;
+  }
 `;
 
 const RecentMeta = styled.div`

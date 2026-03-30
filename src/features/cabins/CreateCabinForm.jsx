@@ -35,6 +35,21 @@ const FormRow = styled.div`
     justify-content: flex-end;
     gap: 1.2rem;
   }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+
+    &:not(:last-child) {
+      border-bottom: none;
+    }
+
+    &:has(button) {
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  }
 `;
 
 const Label = styled.label`

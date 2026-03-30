@@ -18,11 +18,28 @@ const StyledSidebar = styled.aside`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
+
+  @media (max-width: 900px) {
+    position: fixed;
+    inset: 0 auto 0 0;
+    height: 100dvh;
+    width: min(28rem, 85vw);
+    min-width: 0;
+    z-index: 50;
+    transform: translateX(${(props) => (props.$open ? "0" : "-105%")});
+    transition: transform 0.22s ease;
+    overflow-y: auto;
+  }
 `;
 
-function Sidebar() {
+function Sidebar({ isOpen, onClose }) {
   return (
-    <StyledSidebar>
+    <StyledSidebar
+      $open={isOpen}
+      onClick={(e) => {
+        if (e.target.closest("a")) onClose?.();
+      }}
+    >
       <Logo />
       <MainNav />
     </StyledSidebar>

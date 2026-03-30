@@ -13,11 +13,52 @@ import { authenticateDemo, getDemoAccounts } from "../utils/demoAuthStore";
 const LoginLayout = styled.main`
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 48rem;
+  grid-template-columns: minmax(0, 48rem);
   align-content: center;
   justify-content: center;
   gap: 3.2rem;
   background-color: var(--color-grey-50);
+  padding: 2.4rem 1.6rem;
+`;
+
+const DemoCard = styled.div`
+  background: var(--color-grey-0);
+  border: 1px solid var(--color-grey-200);
+  border-radius: 12px;
+  padding: 1.6rem;
+`;
+
+const DemoList = styled.div`
+  margin-top: 1.2rem;
+  display: grid;
+  gap: 0.8rem;
+`;
+
+const DemoRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  background: var(--color-grey-50);
+  border: 1px solid var(--color-grey-200);
+  font-size: 1.4rem;
+  min-width: 0;
+
+  & > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+    & > span {
+      white-space: normal;
+    }
+  }
 `;
 
 function Login() {
@@ -100,30 +141,18 @@ function Login() {
         </FormRow>
       </Form>
 
-      <div style={{ background: "var(--color-grey-0)", border: "1px solid var(--color-grey-200)", borderRadius: "12px", padding: "1.6rem" }}>
+      <DemoCard>
         <Heading as="h2">Demo accounts</Heading>
-        <div style={{ marginTop: "1.2rem", display: "grid", gap: "0.8rem" }}>
+        <DemoList>
           {demoAccounts.map((acct) => (
-            <div
-              key={acct.id}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "1.2rem",
-                padding: "0.8rem 1rem",
-                borderRadius: "10px",
-                background: "var(--color-grey-50)",
-                border: "1px solid var(--color-grey-200)",
-                fontSize: "1.4rem",
-              }}
-            >
+            <DemoRow key={acct.id}>
               <span style={{ fontWeight: 700 }}>{acct.email}</span>
               <span style={{ color: "var(--color-grey-600)" }}>{acct.password}</span>
               <span style={{ fontWeight: 700, color: "var(--color-grey-700)" }}>{acct.role}</span>
-            </div>
+            </DemoRow>
           ))}
-        </div>
-      </div>
+        </DemoList>
+      </DemoCard>
     </LoginLayout>
   );
 }

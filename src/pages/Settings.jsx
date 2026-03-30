@@ -17,12 +17,20 @@ const Card = styled.div`
   padding: 2.4rem;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-grey-200);
+
+  @media (max-width: 640px) {
+    padding: 1.6rem;
+  }
 `;
 
 const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 2.4rem;
+
+  @media (max-width: 640px) {
+    gap: 1.2rem;
+  }
 `;
 
 const SettingBox = styled.div`
@@ -39,6 +47,10 @@ const SettingBox = styled.div`
   &:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 640px) {
+    padding: 1.6rem;
   }
 `;
 
@@ -80,6 +92,10 @@ const FormWrapper = styled.div`
   border-radius: var(--border-radius-lg);
   border: 1px solid var(--color-grey-200);
   box-shadow: var(--shadow-md);
+
+  @media (max-width: 640px) {
+    padding: 1.6rem;
+  }
 `;
 
 const PolicyList = styled.ul`

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 import { HiOutlineUserCircle } from "react-icons/hi2";
+import { HiBars3 } from "react-icons/hi2";
 import { useAuth } from "../context/AuthContext";
 
 const StyledHeader = styled.header`
@@ -19,6 +20,49 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   gap: 1.6rem;
+
+  @media (max-width: 640px) {
+    padding: 1.2rem 1.2rem;
+    gap: 1rem;
+  }
+`;
+
+const Left = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  min-width: 0;
+`;
+
+const MenuButton = styled.button`
+  display: none;
+  border: 1px solid var(--color-grey-200);
+  background: var(--color-grey-0);
+  color: var(--color-grey-700);
+  border-radius: var(--border-radius-sm);
+  padding: 0.7rem;
+
+  &:hover {
+    background: var(--color-grey-50);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+
+  & svg {
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-grey-700);
+  }
+
+  @media (max-width: 900px) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
 `;
 
 const TitleWrap = styled.div`
@@ -43,6 +87,10 @@ const PageTitle = styled.h2`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media (max-width: 640px) {
+    font-size: 1.6rem;
+  }
 `;
 
 const Right = styled.div`
@@ -50,12 +98,20 @@ const Right = styled.div`
   align-items: center;
   gap: 1.2rem;
   flex-shrink: 0;
+
+  @media (max-width: 640px) {
+    gap: 0.8rem;
+  }
 `;
 
 const DateText = styled.span`
   font-size: 1.3rem;
   color: var(--color-grey-600);
   font-weight: 500;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const HeaderButton = styled.button`
@@ -83,6 +139,17 @@ const HeaderButton = styled.button`
     width: 1.8rem;
     height: 1.8rem;
     color: var(--color-grey-500);
+  }
+
+  & .label {
+    display: inline;
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.8rem;
+    & .label {
+      display: none;
+    }
   }
 `;
 
@@ -112,6 +179,17 @@ const HeaderLink = styled(Link)`
     height: 1.8rem;
     color: var(--color-grey-500);
   }
+
+  & .label {
+    display: inline;
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.8rem;
+    & .label {
+      display: none;
+    }
+  }
 `;
 
 const UserPill = styled.span`
@@ -131,6 +209,21 @@ const UserPill = styled.span`
     height: 2rem;
     color: var(--color-grey-500);
   }
+
+  & .name {
+    display: inline;
+    max-width: 18rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.7rem;
+    & .name {
+      display: none;
+    }
+  }
 `;
 
 const ROUTE_TITLES = {
@@ -143,7 +236,7 @@ const ROUTE_TITLES = {
   "/account": "Account",
 };
 
-function Header() {
+function Header({ onToggleSidebar }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { isAuthenticated, user, logout } = useAuth();
@@ -158,10 +251,15 @@ function Header() {
 
   return (
     <StyledHeader>
-      <TitleWrap>
-        <AppName>Hotel Admin</AppName>
-        <PageTitle>{title}</PageTitle>
-      </TitleWrap>
+      <Left>
+        <MenuButton type="button" onClick={onToggleSidebar} aria-label="Open menu">
+          <HiBars3 />
+        </MenuButton>
+        <TitleWrap>
+          <AppName>Hotel Admin</AppName>
+          <PageTitle>{title}</PageTitle>
+        </TitleWrap>
+      </Left>
 
       <Right>
         <DateText>{dateText}</DateText>
@@ -169,7 +267,7 @@ function Header() {
           <>
             <UserPill title={user?.email || "Signed in"}>
               <HiOutlineUserCircle />
-              {user?.fullName || "User"}
+              <span className="name">{user?.fullName || "User"}</span>
             </UserPill>
             <HeaderButton
               type="button"
@@ -181,13 +279,13 @@ function Header() {
               aria-label="Sign out"
             >
               <HiOutlineArrowRightOnRectangle />
-              Logout
+              <span className="label">Logout</span>
             </HeaderButton>
           </>
         ) : (
           <HeaderLink to="/login" title="Go to login" aria-label="Go to login">
             <HiOutlineArrowRightOnRectangle />
-            Login
+            <span className="label">Login</span>
           </HeaderLink>
         )}
       </Right>

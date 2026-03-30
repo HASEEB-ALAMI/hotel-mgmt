@@ -15,11 +15,15 @@ const Form = styled.form`
   ${(props) =>
     props.type === "modal" &&
     css`
-      width: 80rem;
+      width: min(80rem, calc(100vw - 3.2rem));
     `}
     
   overflow: hidden;
   font-size: 1.4rem;
+
+  @media (max-width: 640px) {
+    padding: 1.6rem;
+  }
 `;
 
 export default Form;

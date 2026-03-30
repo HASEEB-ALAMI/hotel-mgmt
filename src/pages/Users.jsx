@@ -12,6 +12,11 @@ const UserTable = styled.div`
   border-radius: 10px;
   overflow: hidden;
   margin-top: 2rem;
+
+  @media (max-width: 700px) {
+    border: none;
+    overflow: visible;
+  }
 `;
 
 const UserHeader = styled.div`
@@ -21,6 +26,10 @@ const UserHeader = styled.div`
   display: grid;
   grid-template-columns: 2fr 3fr 2fr 1fr;
   gap: 0.8rem;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const UserRow = styled.div`
@@ -29,6 +38,45 @@ const UserRow = styled.div`
   gap: 0.8rem;
   padding: 0.9rem 1.2rem;
   border-top: 1px solid var(--color-grey-200);
+  min-width: 0;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    padding: 1.2rem;
+    border: 1px solid var(--color-grey-200);
+    border-radius: 12px;
+    background: var(--color-grey-0);
+    box-shadow: var(--shadow-sm);
+
+    & + & {
+      margin-top: 1rem;
+    }
+  }
+`;
+
+const Cell = styled.div`
+  min-width: 0;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 700px) {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+
+    &::before {
+      content: attr(data-label);
+      font-weight: 700;
+      color: var(--color-grey-500);
+      flex: 0 0 auto;
+    }
+  }
+`;
+
+const ActionCell = styled(Cell)`
+  @media (max-width: 700px) {
+    justify-content: flex-start;
+  }
 `;
 
 const Tag = styled.span`
@@ -116,19 +164,19 @@ function Users() {
         </UserHeader>
         {users.map((user) => (
           <UserRow key={user.id}>
-            <div>{user.fullName}</div>
-            <div>{user.email}</div>
-            <div>
+            <Cell data-label="Name">{user.fullName}</Cell>
+            <Cell data-label="Email">{user.email}</Cell>
+            <Cell data-label="Role">
               <Tag role={user.role}>{user.role}</Tag>
-            </div>
-            <div>
+            </Cell>
+            <ActionCell data-label="Actions">
               <Button
                 variation="secondary"
                 onClick={() => setUsers((prev) => prev.filter((u) => u.id !== user.id))}
               >
                 Remove
               </Button>
-            </div>
+            </ActionCell>
           </UserRow>
         ))}
       </UserTable>

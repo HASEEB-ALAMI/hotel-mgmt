@@ -13,10 +13,82 @@ const Row = styled.div`
     border-right: 1px solid var(--color-grey-200);
     display: flex;
     align-items: center;
+    min-width: 0;
   }
 
   & > div:last-child {
     border-right: none;
+  }
+
+  @media (max-width: 700px) {
+    grid-template-columns: 80px 1fr;
+    grid-template-areas:
+      "img guest"
+      "img cabin"
+      "img dates"
+      "img status"
+      "img total";
+    border: 1px solid var(--color-grey-200);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 1rem;
+
+    & > div {
+      border-right: none;
+      padding: 1rem 1.2rem;
+      align-items: flex-start;
+    }
+
+    & > *:nth-child(1) {
+      grid-area: img;
+      justify-content: center;
+      align-items: center;
+    }
+    & > *:nth-child(2) {
+      grid-area: guest;
+    }
+    & > *:nth-child(3) {
+      grid-area: cabin;
+      &::before {
+        content: "Cabin";
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-grey-500);
+        margin-right: 0.8rem;
+      }
+    }
+    & > *:nth-child(4) {
+      grid-area: dates;
+      &::before {
+        content: "Dates";
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-grey-500);
+        margin-right: 0.8rem;
+      }
+    }
+    & > *:nth-child(5) {
+      grid-area: status;
+      &::before {
+        content: "Status";
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-grey-500);
+        margin-right: 0.8rem;
+      }
+    }
+    & > *:nth-child(6) {
+      grid-area: total;
+      justify-content: flex-start;
+      &::before {
+        content: "Total";
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-grey-500);
+        margin-right: 0.8rem;
+      }
+    }
   }
 `;
 
@@ -32,17 +104,23 @@ const Guest = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+  min-width: 0;
 
   & span {
     font-weight: 500;
     color: var(--color-grey-500);
     font-size: 1.2rem;
+    overflow-wrap: anywhere;
   }
 `;
 
 const NumCell = styled.div`
   justify-content: flex-end;
   font-variant-numeric: tabular-nums;
+
+  @media (max-width: 700px) {
+    justify-content: flex-start;
+  }
 `;
 
 const Tag = styled.span`

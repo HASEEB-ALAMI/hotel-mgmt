@@ -19,10 +19,79 @@ const Row = styled.div`
     border-right: 1px solid var(--color-grey-200);
     display: flex;
     align-items: center;
+    min-width: 0;
   }
 
   & > div:last-child {
     border-right: none;
+  }
+
+  @media (max-width: 700px) {
+    grid-template-columns: 80px 1fr;
+    grid-template-areas:
+      "img name"
+      "img capacity"
+      "img price"
+      "img discount"
+      "actions actions";
+    border: 1px solid var(--color-grey-200);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-bottom: 1rem;
+
+    & > div {
+      border-right: none;
+      padding: 1rem 1.2rem;
+      align-items: flex-start;
+    }
+
+    & > *:nth-child(1) {
+      grid-area: img;
+      justify-content: center;
+      align-items: center;
+    }
+    & > *:nth-child(2) {
+      grid-area: name;
+    }
+    & > *:nth-child(3) {
+      grid-area: capacity;
+      justify-content: flex-start;
+      &::before {
+        content: "Capacity";
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-grey-500);
+        margin-right: 0.8rem;
+      }
+    }
+    & > *:nth-child(4) {
+      grid-area: price;
+      justify-content: flex-start;
+      &::before {
+        content: "Price";
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-grey-500);
+        margin-right: 0.8rem;
+      }
+    }
+    & > *:nth-child(5) {
+      grid-area: discount;
+      justify-content: flex-start;
+      &::before {
+        content: "Discount";
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--color-grey-500);
+        margin-right: 0.8rem;
+      }
+    }
+    & > *:nth-child(6) {
+      grid-area: actions;
+      justify-content: flex-start;
+      border-top: 1px solid var(--color-grey-200);
+    }
   }
 `;
 
@@ -35,6 +104,14 @@ const Img = styled.img`
 
 const Name = styled.div`
   font-weight: 600;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media (max-width: 700px) {
+    white-space: normal;
+  }
 `;
 
 const NumCell = styled.div`
@@ -72,6 +149,11 @@ const Actions = styled.div`
   gap: 8px;
   justify-content: flex-end;
   align-items: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 700px) {
+    justify-content: flex-start;
+  }
 `;
 
 
